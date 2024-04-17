@@ -4,7 +4,21 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final nowPlayingMoviesProvider = StateNotifierProvider<MoviesNotifier, List<Movie>>((ref) {
   final fetchMoreMovies = ref.watch(moviesRepositoryProvider).getNowPlaying;
+  return MoviesNotifier(fetchMoreMovies: fetchMoreMovies);
+});
 
+final popularPlayingMoviesProvider = StateNotifierProvider<MoviesNotifier, List<Movie>>((ref) {
+  final fetchMoreMovies = ref.watch(moviesRepositoryProvider).getPopular;
+  return MoviesNotifier(fetchMoreMovies: fetchMoreMovies);
+});
+
+final upcomingPlayingMoviesProvider = StateNotifierProvider<MoviesNotifier, List<Movie>>((ref) {
+  final fetchMoreMovies = ref.watch(moviesRepositoryProvider).getUpcoming;
+  return MoviesNotifier(fetchMoreMovies: fetchMoreMovies);
+});
+
+final topRatedPlayingMoviesProvider = StateNotifierProvider<MoviesNotifier, List<Movie>>((ref) {
+  final fetchMoreMovies = ref.watch(moviesRepositoryProvider).getTopRated;
   return MoviesNotifier(fetchMoreMovies: fetchMoreMovies);
 });
 
@@ -20,7 +34,6 @@ class MoviesNotifier extends StateNotifier<List<Movie>> {
   Future<void> loadNextPage() async {
     if (isLoading) return;
     isLoading = true;
-    print('Loading more movies');
     currentPage++;
 
     final List<Movie> movies = await fetchMoreMovies(page: currentPage);
