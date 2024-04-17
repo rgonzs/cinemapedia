@@ -102,7 +102,6 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
         );
       },
     );
-    ;
   }
 
   @override
